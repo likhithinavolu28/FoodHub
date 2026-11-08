@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-// Directly sets your live Render backend base URL
 const api = axios.create({
-  baseURL: 'https://foodhub-j81c.onrender.com/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
   },
