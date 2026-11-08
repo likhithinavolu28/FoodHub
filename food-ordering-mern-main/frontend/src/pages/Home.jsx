@@ -25,6 +25,7 @@ const CATEGORIES_DATA = [
 function Home() {
   const { user } = useContext(AuthContext);
   const { addToCart } = useContext(CartContext);
+  // FIX: Initialize as an empty array [] to prevent .map() failures on initial render
   const [featuredFoods, setFeaturedFoods] = useState([]);
   const [addedPopup, setAddedPopup] = useState(null);
 
@@ -32,7 +33,9 @@ function Home() {
     const fetchTopFoods = async () => {
       try {
         const res = await api.get('/foods');
-        setFeaturedFoods(res.data.slice(0, 4));
+        // Ensure we extract or slice correctly depending on API response layout
+        const foodData = Array.isArray(res.data) ? res.data : (res.data.foods || res.data.data || []);
+        setFeaturedFoods(foodData.slice(0, 4));
       } catch (err) {
         console.error(err);
       }
@@ -216,7 +219,6 @@ function Home() {
               background: '#0f1218'
             }}
           >
-            {/* High-Resolution Smoky Roasted Tandoori Charcoal Chicken */}
             <img 
               src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=1000" 
               alt="Artisanal Flame-Grilled Chicken Feast"
@@ -232,7 +234,6 @@ function Home() {
               onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             />
 
-            {/* Glowing Sizzle Overlay Gradient with Tag */}
             <div style={{
               position: 'absolute',
               bottom: 0,
@@ -457,7 +458,8 @@ function Home() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: '2.2rem'
         }}>
-          {featuredFoods.map((food) => (
+          {/* FIX: Use Array.isArray check to ensure safe rendering */}
+          {Array.isArray(featuredFoods) && featuredFoods.map((food) => (
             <div key={food._id} className="food-card-pro">
               <div style={{ position: 'relative', height: '210px', overflow: 'hidden' }}>
                 <img

@@ -4,21 +4,7 @@
 
 ---
 
-## 👥 Team & Submission Information
 
-| Parameter | Details |
-|---|---|
-| **Team Name** | **Team AFK** |
-| **Project Title** | **FoodHub PRO – Interactive Food Ordering & Kitchen Order Management System** |
-| **Course / Program**| MERN Stack Web Development Training Program |
-| **Lead / Member 1** | **[MATTA VENKATA DEEEPAK]** — Reg No: `241FA04E27` (Lead Developer, GitHub: `vu241fa04e27-afk`) |
-| **Member 2** | **[CH.ABHINAY KUMAR]** — Reg No: `241FA04898` (Frontend & UI/UX Developer) |
-| **Member 3** | **[SK.MD.SUHEL]** — Reg No: `241FA04E27` (Backend & Database Developer) |
-| **GitHub Repository**| `https://github.com/vu241fa04e27-afk/food-ordering-mern` |
-| **Live Frontend URL**| **`https://food-ordering-mern-vki3.vercel.app`** |
-| **Live Backend API** | **`https://food-ordering-mern-hwx4.vercel.app/api`** |
-
----
 
 ## 📖 1. Project Overview & Description
 **FoodHub PRO** is a production-grade, highly responsive, and creatively animated full-stack food ordering and restaurant management platform developed using the **MERN Stack (MongoDB, Express.js, React.js, Node.js)**. 
