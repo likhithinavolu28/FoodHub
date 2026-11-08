@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,24 +6,31 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const loadUser = async () => {
     const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const res = await api.get('/users/profile');
-        setUser(res.data);
-      } catch (err) {
-        localStorage.removeItem('token');
-        setUser(null);
-      }
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await api.get('/users/profile');
+      setUser(res.data);
+    } catch (err) {
+      console.error('Failed to load user:', err);
+      localStorage.removeItem('token');
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     loadUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const login = async (email, password) => {
@@ -45,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
